@@ -16,6 +16,11 @@ class ProductViewModel(
     val state: StateFlow<ProductUiState> = _state
 
     private var allProducts: List<Product> = emptyList()
+
+    var selectedCategory: String? = null
+        private set
+
+
     suspend fun loadProducts() {
 
         try {
@@ -46,5 +51,33 @@ class ProductViewModel(
             _state.value =
                 ProductUiState.Error(e.message ?: "Search failed")
         }
+    }
+
+    fun filterByCategory(category: String) {
+
+        if (category == "All") {
+            selectedCategory = null
+            _state.value = ProductUiState.Success(allProducts)
+            return
+        }
+
+        if (selectedCategory == category) {
+            selectedCategory = null
+            _state.value = ProductUiState.Success(allProducts)
+            return
+        }
+
+        selectedCategory = category
+
+        val filtered = allProducts.filter {
+            it.category.equals(category, ignoreCase = true)
+        }
+
+        _state.value = ProductUiState.Success(filtered)
+
+    }
+
+    fun getCategories(): List<String> {
+        return listOf("All") + allProducts.map { it.category }.distinct()
     }
 }

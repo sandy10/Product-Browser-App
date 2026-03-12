@@ -28,8 +28,11 @@ import com.sandeep.productbrowserapp.domain.model.Product
 @Composable
 fun ProductListScreen(
     products: List<Product>,
+    categories: List<String>,
+    selectedCategory: String?,
     onProductClick: (Product) -> Unit,
-    onSearch: (String) -> Unit
+    onSearch: (String) -> Unit,
+    onCategoryFilter: (String) -> Unit
 ) {
 
     var query by remember { mutableStateOf("") }
@@ -44,6 +47,14 @@ fun ProductListScreen(
             onQueryChange = {
                 query = it
                 onSearch(it)
+            }
+        )
+
+        CategoryFilter(
+            categories = categories,
+            selectedCategory = selectedCategory,
+            onCategorySelected = { category ->
+                onCategoryFilter(category)
             }
         )
 
