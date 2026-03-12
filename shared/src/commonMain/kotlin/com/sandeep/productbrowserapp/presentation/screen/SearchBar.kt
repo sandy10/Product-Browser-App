@@ -7,6 +7,7 @@ import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.sandeep.productbrowserapp.util.AppConstants
 
 @Composable
 fun SearchBar(
@@ -21,7 +22,7 @@ fun SearchBar(
             .fillMaxWidth()
             .padding(8.dp),
         placeholder = {
-            Text("Search products...")
+            Text(AppConstants.SEARCH_PRODUCTS)
         },
         singleLine = true
     )

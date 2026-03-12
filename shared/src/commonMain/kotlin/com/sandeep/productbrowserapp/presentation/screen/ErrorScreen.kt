@@ -6,6 +6,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.sandeep.productbrowserapp.util.AppConstants
 import io.ktor.websocket.Frame
 
 @Composable
@@ -15,6 +16,6 @@ fun ErrorScreen() {
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
-        Text("Error loading products")
+        Text(AppConstants.ERROR_LOADING_PRODUCTS)
     }
 }

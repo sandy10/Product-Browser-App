@@ -18,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import com.sandeep.productbrowserapp.domain.model.Product
+import com.sandeep.productbrowserapp.util.AppConstants
 import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
 
@@ -39,7 +40,7 @@ fun ProductDetailScreen(
             onClick = onBackClick,
             modifier = Modifier.padding(bottom = 16.dp)
         ) {
-            Text("Back")
+            Text(AppConstants.BACK)
         }
 
         Card(
@@ -68,21 +69,21 @@ fun ProductDetailScreen(
                 Spacer(modifier = Modifier.height(10.dp))
 
                 Text(
-                    text = "Brand: ${product.brand}",
+                    text = AppConstants.BRAND + " ${product.brand}",
                     style = MaterialTheme.typography.subtitle1
                 )
 
                 Spacer(modifier = Modifier.height(10.dp))
 
                 Text(
-                    text = "Price: $${product.price}",
+                    text = AppConstants.PRICE + " $${product.price}",
                     style = MaterialTheme.typography.h6
                 )
 
                 Spacer(modifier = Modifier.height(10.dp))
 
                 Text(
-                    text = "Rating: ${product.rating}"
+                    text = AppConstants.RATING + " ${product.rating}"
                 )
             }
         }
@@ -96,7 +97,7 @@ fun ProductDetailScreen(
             ) {
 
                 Text(
-                    text = "Description",
+                    text = AppConstants.DESCRIPTION,
                     style = MaterialTheme.typography.subtitle1
                 )
 

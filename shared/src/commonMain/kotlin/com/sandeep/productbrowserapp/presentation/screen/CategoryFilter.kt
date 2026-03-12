@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.sandeep.productbrowserapp.util.AppConstants
 
 @Composable
     fun CategoryFilter(
@@ -25,7 +26,7 @@ import androidx.compose.ui.unit.dp
             items(categories) { category ->
 
                 val isSelected =
-                    if (category == "All") selectedCategory == null
+                    if (category == AppConstants.CATEGORY_ALL) selectedCategory == null
                     else category == selectedCategory
                 Card(
                     modifier = Modifier

@@ -4,6 +4,7 @@ import com.sandeep.productbrowserapp.domain.model.Product
 import com.sandeep.productbrowserapp.domain.useCase.GetProductsUseCase
 import com.sandeep.productbrowserapp.domain.useCase.SearchProductsUseCase
 import com.sandeep.productbrowserapp.presentation.state.ProductUiState
+import com.sandeep.productbrowserapp.util.AppConstants
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
@@ -32,7 +33,7 @@ class ProductViewModel(
         } catch (e: Exception) {
             e.printStackTrace()
             _state.value =
-                ProductUiState.Error(e.message ?: "Unknown error")
+                ProductUiState.Error(e.message ?: AppConstants.UNKNOWN_ERROR)
         }
     }
     suspend fun search(query: String) {
@@ -49,13 +50,13 @@ class ProductViewModel(
         } catch (e: Exception) {
             e.printStackTrace()
             _state.value =
-                ProductUiState.Error(e.message ?: "Search failed")
+                ProductUiState.Error(e.message ?: AppConstants.SEARCH_FAILED)
         }
     }
 
     fun filterByCategory(category: String) {
 
-        if (category == "All") {
+        if (category == AppConstants.CATEGORY_ALL) {
             selectedCategory = null
             _state.value = ProductUiState.Success(allProducts)
             return
@@ -78,6 +79,6 @@ class ProductViewModel(
     }
 
     fun getCategories(): List<String> {
-        return listOf("All") + allProducts.map { it.category }.distinct()
+        return listOf(AppConstants.CATEGORY_ALL) + allProducts.map { it.category }.distinct()
     }
 }
