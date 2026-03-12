@@ -1,7 +1,6 @@
 package com.sandeep.productbrowserapp
 
 import androidx.compose.runtime.*
-import androidx.compose.ui.tooling.preview.Preview
 import com.sandeep.productbrowserapp.di.AppModule
 import com.sandeep.productbrowserapp.domain.model.Product
 import com.sandeep.productbrowserapp.presentation.screen.ErrorScreen
@@ -9,18 +8,13 @@ import com.sandeep.productbrowserapp.presentation.screen.LoadingScreen
 import com.sandeep.productbrowserapp.presentation.screen.ProductDetailScreen
 import com.sandeep.productbrowserapp.presentation.screen.ProductListScreen
 import com.sandeep.productbrowserapp.presentation.state.ProductUiState
-import com.sandeep.productbrowserapp.presentation.viewModel.ProductViewModel
 import kotlinx.coroutines.launch
 
 @Composable
-@Preview
 fun App() {
 
     val viewModel = remember {
-        ProductViewModel(
-            AppModule.getProductsUseCase,
-            AppModule.searchProductsUseCase
-        )
+        AppModule.provideProductViewModel()
     }
 
     val coroutineScope = rememberCoroutineScope()
