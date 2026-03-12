@@ -1,5 +1,6 @@
 package com.sandeep.productbrowserapp.presentation.viewModel
 
+import com.sandeep.productbrowserapp.domain.model.Product
 import com.sandeep.productbrowserapp.domain.useCase.GetProductsUseCase
 import com.sandeep.productbrowserapp.domain.useCase.SearchProductsUseCase
 import com.sandeep.productbrowserapp.presentation.state.ProductUiState
@@ -14,12 +15,13 @@ class ProductViewModel(
     private val _state = MutableStateFlow<ProductUiState>(ProductUiState.Loading)
     val state: StateFlow<ProductUiState> = _state
 
+    private var allProducts: List<Product> = emptyList()
     suspend fun loadProducts() {
 
         try {
 
             val products = getProducts()
-
+            allProducts = products
             _state.value = ProductUiState.Success(products)
 
         } catch (e: Exception) {
@@ -30,7 +32,19 @@ class ProductViewModel(
     }
     suspend fun search(query: String) {
 
-        val products = searchProducts(query)
-        _state.value = ProductUiState.Success(products)
+        try {
+            if (query.isBlank()) {
+                _state.value = ProductUiState.Success(allProducts)
+                return
+            }
+
+            val products = searchProducts(query)
+            _state.value = ProductUiState.Success(products)
+
+        } catch (e: Exception) {
+            e.printStackTrace()
+            _state.value =
+                ProductUiState.Error(e.message ?: "Search failed")
+        }
     }
 }

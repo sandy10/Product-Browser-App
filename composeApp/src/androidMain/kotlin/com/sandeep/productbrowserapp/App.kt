@@ -23,10 +23,6 @@ import com.sandeep.productbrowserapp.presentation.screen.ProductListScreen
 import com.sandeep.productbrowserapp.presentation.state.ProductUiState
 import com.sandeep.productbrowserapp.presentation.viewModel.ProductViewModel
 import kotlinx.coroutines.launch
-import org.jetbrains.compose.resources.painterResource
-
-import productbrowserapp.composeapp.generated.resources.Res
-import productbrowserapp.composeapp.generated.resources.compose_multiplatform
 
 @Composable
 @Preview
@@ -39,6 +35,7 @@ fun App() {
         )
     }
 
+    val coroutineScope = rememberCoroutineScope()
     val state by viewModel.state.collectAsState()
     var selectedProduct by remember { mutableStateOf<Product?>(null) }
 
@@ -58,6 +55,11 @@ fun App() {
                 products = currentState.products,
                 onProductClick = {
                     selectedProduct = it
+                },
+                onSearch = { query ->
+                    coroutineScope.launch {
+                        viewModel.search(query)
+                    }
                 }
             )
             } else {
