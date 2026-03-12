@@ -13,7 +13,7 @@ class ProductApiImpl(
     override suspend fun getProducts(): List<ProductDto> {
 
         val response = client
-            .get("https://dummyjson.com/products")
+            .get(ApiRoutes.PRODUCTS)
             .body<ProductResponse>()
 
         return response.products
@@ -22,7 +22,7 @@ class ProductApiImpl(
     override suspend fun searchProducts(query: String): List<ProductDto> {
 
         val response = client
-            .get("https://dummyjson.com/products/search?q=$query")
+            .get("${ApiRoutes.SEARCH_PRODUCTS}?q=$query")
             .body<ProductResponse>()
 
         return response.products
