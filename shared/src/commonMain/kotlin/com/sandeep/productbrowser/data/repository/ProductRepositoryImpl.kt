@@ -2,7 +2,6 @@ package com.sandeep.productbrowser.data.repository
 
 import com.sandeep.productbrowser.core.result.ApiResponse
 import com.sandeep.productbrowser.data.mapper.toDomain
-import com.sandeep.productbrowser.data.remote.api.datasource.ProductRemoteDataSource
 import com.sandeep.productbrowser.data.remote.datasource.ProductRemoteDataSource
 import com.sandeep.productbrowser.domain.model.Product
 import com.sandeep.productbrowser.domain.repository.ProductRepository
