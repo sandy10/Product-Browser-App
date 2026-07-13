@@ -17,7 +17,9 @@ class ProductApiImpl(
 
         return client.get(
             Constants.BASE_URL + Constants.Endpoints.PRODUCTS
-        ).body()
+        ) {
+            parameter("limit", 0)
+        }.body()
     }
 
     override suspend fun searchProducts(
