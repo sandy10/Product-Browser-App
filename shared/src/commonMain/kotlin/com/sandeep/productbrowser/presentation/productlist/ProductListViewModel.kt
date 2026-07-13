@@ -3,6 +3,7 @@ package com.sandeep.productbrowser.presentation.productlist
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sandeep.productbrowser.core.result.ApiResponse
+import com.sandeep.productbrowser.domain.model.Product
 import com.sandeep.productbrowser.domain.usecase.GetProductsUseCase
 import com.sandeep.productbrowser.domain.usecase.SearchProductsUseCase
 import kotlinx.coroutines.Dispatchers
@@ -28,6 +29,7 @@ class ProductListViewModel(
     val uiState: StateFlow<ProductListUiState> = _uiState.asStateFlow()
 
     private val searchQuery = MutableStateFlow("")
+    private var allLoadedProducts: List<Product> = emptyList()
 
     init {
         loadProducts()
@@ -53,21 +55,7 @@ class ProductListViewModel(
                     if (result == null) {
                         loadProducts()
                     } else {
-                        when (result) {
-                            is ApiResponse.Success -> {
-                                _uiState.value = _uiState.value.copy(
-                                    products = result.data,
-                                    error = null,
-                                    isLoading = false
-                                )
-                            }
-                            is ApiResponse.Failure -> {
-                                _uiState.value = _uiState.value.copy(
-                                    error = result.error.toString(),
-                                    isLoading = false
-                                )
-                            }
-                        }
+                        handleApiResponse(result)
                     }
                 }
         }
@@ -79,6 +67,19 @@ class ProductListViewModel(
             is ProductListUiEvent.Search -> {
                 searchQuery.value = event.query
             }
+            is ProductListUiEvent.SelectCategory -> {
+                val newCategory = if (_uiState.value.selectedCategory == event.category) null else event.category
+                val filteredProducts = if (newCategory == null) {
+                    allLoadedProducts
+                } else {
+                    allLoadedProducts.filter { it.category == newCategory }
+                }
+
+                _uiState.value = _uiState.value.copy(
+                    selectedCategory = newCategory,
+                    products = filteredProducts
+                )
+            }
         }
     }
 
@@ -89,19 +90,29 @@ class ProductListViewModel(
                 error = null
             )
 
-            when (val result = getProductsUseCase()) {
-                is ApiResponse.Success -> {
-                    _uiState.value = ProductListUiState(
-                        products = result.data,
-                        isLoading = false
-                    )
-                }
-                is ApiResponse.Failure -> {
-                    _uiState.value = ProductListUiState(
-                        error = result.error.toString(),
-                        isLoading = false
-                    )
-                }
+            val result = getProductsUseCase()
+            handleApiResponse(result)
+        }
+    }
+
+    private fun handleApiResponse(result: ApiResponse<List<Product>>) {
+        when (result) {
+            is ApiResponse.Success -> {
+                allLoadedProducts = result.data
+                val categories = allLoadedProducts.map { it.category }.distinct()
+                
+                _uiState.value = ProductListUiState(
+                    products = allLoadedProducts,
+                    categories = categories,
+                    selectedCategory = null,
+                    isLoading = false
+                )
+            }
+            is ApiResponse.Failure -> {
+                _uiState.value = ProductListUiState(
+                    error = result.error.toString(),
+                    isLoading = false
+                )
             }
         }
     }

@@ -6,4 +6,7 @@ sealed interface ProductListUiEvent {
     data class Search(
         val query: String
     ) : ProductListUiEvent
+    data class SelectCategory(
+        val category: String?
+    ) : ProductListUiEvent
 }
