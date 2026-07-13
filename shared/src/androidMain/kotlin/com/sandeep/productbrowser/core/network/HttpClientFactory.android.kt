@@ -33,7 +33,7 @@ actual object HttpClientFactory {
             install(HttpTimeout) {
                 requestTimeoutMillis = Constants.Timeout.REQUEST
                 connectTimeoutMillis = Constants.Timeout.CONNECT
-                socketTimeoutMillis = Constants.Timeout.SOCKET
+              //  socketTimeoutMillis = Constants.Timeout.SOCKET
             }
 
             install(Logging) {
