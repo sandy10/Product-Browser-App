@@ -47,13 +47,13 @@ fun AppNavigation(
 
             arguments = listOf(
                 navArgument("productId") {
-                    type = NavType.IntType
+                    type = NavType.StringType
                 }
             )
         ) {
 
             val productId =
-                it.arguments?.getInt("productId") ?: 0
+                it.arguments?.getString("productId")?.toIntOrNull() ?: 0
 
             ProductDetailScreen(
                 viewModel = productDetailViewModel,
