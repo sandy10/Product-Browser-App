@@ -28,7 +28,7 @@ suspend inline fun <T> safeApiCall(
 
     } catch (_: ServerResponseException) {
 
-        ApiResponse.Failure(AppError.Network)
+        ApiResponse.Failure(AppError.ServerError)
 
     } catch (_: SerializationException) {
 

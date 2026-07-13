@@ -1,8 +1,9 @@
-package com.sandeep.productbrowser.data.remote.api.api
+package com.sandeep.productbrowser.data.remote.api
 
 import com.sandeep.productbrowser.core.common.Constants
 import com.sandeep.productbrowser.data.dto.ProductDto
 import com.sandeep.productbrowser.data.dto.ProductResponseDto
+import com.sandeep.productbrowser.data.remote.api.api.ProductApi
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get

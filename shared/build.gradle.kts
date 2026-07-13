@@ -52,10 +52,12 @@ kotlin {
             implementation(libs.androidx.lifecycle.runtimeCompose)
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.ktor.client.core)
-
+            implementation(libs.navigation.compose)
             implementation(libs.ktor.client.content.negotiation)
             implementation(libs.ktor.serialization)
             implementation(libs.kotlinx.serialization.json)
+            implementation(libs.kamel.image)
+            implementation(libs.kamel.decoder)
         }
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)

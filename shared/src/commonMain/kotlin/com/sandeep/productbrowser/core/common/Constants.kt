@@ -5,8 +5,8 @@ package com.sandeep.productbrowser.core.common
         const val BASE_URL = "https://dummyjson.com/"
 
         object Endpoints {
-            const val PRODUCTS = "docs/products"
-            const val SEARCH = "docs/products/search"
+            const val PRODUCTS = "products"
+            const val SEARCH = "products/search"
         }
 
         object Timeout {
