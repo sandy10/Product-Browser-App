@@ -6,7 +6,9 @@ import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -34,12 +36,30 @@ fun ProductImage(
         return
     }
 
-    val pagerState = rememberPagerState(pageCount = { images.size })
-
     Column(
         modifier = modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        val validImages = images.filter { it.isNotBlank() }
+
+        if (validImages.isEmpty()) {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(250.dp)
+                    .background(
+                        MaterialTheme.colorScheme.surfaceVariant,
+                        RoundedCornerShape(12.dp)
+                    ),
+                contentAlignment = Alignment.Center
+            ) {
+                Text("No Images", style = MaterialTheme.typography.labelMedium)
+            }
+            return
+        }
+
+        val pagerState = rememberPagerState(pageCount = { validImages.size })
+
         HorizontalPager(
             state = pagerState,
             modifier = Modifier
@@ -48,22 +68,32 @@ fun ProductImage(
                 .clip(RoundedCornerShape(12.dp))
         ) { page ->
             KamelImage(
-                resource = asyncPainterResource(data = images[page]),
+                resource = asyncPainterResource(data = validImages[page]),
                 contentDescription = "Product image $page",
                 modifier = Modifier
                     .fillMaxSize()
                     .background(MaterialTheme.colorScheme.surfaceVariant),
-                contentScale = ContentScale.Fit
+                contentScale = ContentScale.Fit,
+                onLoading = {
+                    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                        CircularProgressIndicator()
+                    }
+                },
+                onFailure = {
+                    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                        Text("Image failed to load", style = MaterialTheme.typography.labelSmall)
+                    }
+                }
             )
         }
 
-        if (images.size > 1) {
+        if (validImages.size > 1) {
             Spacer(modifier = Modifier.height(8.dp))
             Row(
                 horizontalArrangement = Arrangement.Center,
                 modifier = Modifier.fillMaxWidth()
             ) {
-                repeat(images.size) { iteration ->
+                repeat(validImages.size) { iteration ->
                     val color = if (pagerState.currentPage == iteration) 
                         MaterialTheme.colorScheme.primary 
                     else 

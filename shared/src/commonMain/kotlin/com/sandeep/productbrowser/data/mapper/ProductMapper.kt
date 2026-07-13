@@ -13,7 +13,7 @@ fun ProductDto.toDomain(): Product {
         brand = brand.orEmpty(),
         price = price,
         rating = rating,
-        thumbnail = thumbnail,
-        images = images
+        thumbnail = thumbnail.orEmpty(),
+        images = images.orEmpty()
     )
 }

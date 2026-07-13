@@ -4,7 +4,7 @@ import com.sandeep.productbrowser.core.network.safeApiCall
 import com.sandeep.productbrowser.core.result.ApiResponse
 import com.sandeep.productbrowser.data.dto.ProductDto
 import com.sandeep.productbrowser.data.dto.ProductResponseDto
-import com.sandeep.productbrowser.data.remote.api.api.ProductApi
+import com.sandeep.productbrowser.data.remote.api.ProductApi
 
 class ProductRemoteDataSource(
     private val api: ProductApi

@@ -2,14 +2,14 @@ package com.sandeep.productbrowser.presentation.productlist
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.sandeep.productbrowser.core.dispatcher.DispatcherProvider
 import com.sandeep.productbrowser.core.result.ApiResponse
+import com.sandeep.productbrowser.core.result.toUserMessage
 import com.sandeep.productbrowser.domain.model.Product
 import com.sandeep.productbrowser.domain.usecase.GetProductsUseCase
 import com.sandeep.productbrowser.domain.usecase.SearchProductsUseCase
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -22,7 +22,8 @@ import kotlinx.coroutines.launch
 
 class ProductListViewModel(
     private val getProductsUseCase: GetProductsUseCase,
-    private val searchProductsUseCase: SearchProductsUseCase
+    private val searchProductsUseCase: SearchProductsUseCase,
+    private val dispatcherProvider: DispatcherProvider
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(ProductListUiState())
@@ -49,7 +50,7 @@ class ProductListViewModel(
                         } else {
                             emit(searchProductsUseCase(query))
                         }
-                    }.flowOn(Dispatchers.IO)
+                    }.flowOn(dispatcherProvider.io)
                 }
                 .collect { result ->
                     if (result == null) {
@@ -110,7 +111,7 @@ class ProductListViewModel(
             }
             is ApiResponse.Failure -> {
                 _uiState.value = ProductListUiState(
-                    error = result.error.toString(),
+                    error = result.error.toUserMessage(),
                     isLoading = false
                 )
             }

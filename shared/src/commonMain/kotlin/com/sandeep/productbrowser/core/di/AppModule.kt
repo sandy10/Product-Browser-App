@@ -2,7 +2,7 @@ package com.sandeep.productbrowser.core.di
 
 import com.sandeep.productbrowser.core.dispatcher.DefaultDispatcherProvider
 import com.sandeep.productbrowser.core.network.HttpClientFactory
-import com.sandeep.productbrowser.data.remote.api.api.ProductApi
+import com.sandeep.productbrowser.data.remote.api.ProductApi
 import com.sandeep.productbrowser.data.remote.api.ProductApiImpl
 import com.sandeep.productbrowser.data.remote.datasource.ProductRemoteDataSource
 import com.sandeep.productbrowser.data.repository.ProductRepositoryImpl
@@ -49,7 +49,8 @@ object AppModule {
     fun provideProductListViewModel(): ProductListViewModel {
         return ProductListViewModel(
             getProductsUseCase,
-            searchProductsUseCase
+            searchProductsUseCase,
+            dispatcherProvider
         )
     }
 

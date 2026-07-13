@@ -3,6 +3,7 @@ package com.sandeep.productbrowser.presentation.productdetail
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sandeep.productbrowser.core.result.ApiResponse
+import com.sandeep.productbrowser.core.result.toUserMessage
 import com.sandeep.productbrowser.domain.usecase.GetProductUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -41,7 +42,7 @@ class ProductDetailViewModel(
 
                 is ApiResponse.Failure -> {
                     _uiState.value = ProductDetailUiState(
-                        error = result.error.toString()
+                        error = result.error.toUserMessage()
                     )
                 }
             }
