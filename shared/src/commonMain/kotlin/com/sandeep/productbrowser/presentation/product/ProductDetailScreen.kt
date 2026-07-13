@@ -13,6 +13,7 @@ import androidx.compose.ui.unit.dp
 import com.sandeep.productbrowser.presentation.components.*
 import com.sandeep.productbrowser.presentation.productdetail.ProductDetailUiEvent
 import com.sandeep.productbrowser.presentation.productdetail.ProductDetailViewModel
+import com.sandeep.productbrowser.core.common.Constants
 
 @Composable
 fun ProductDetailScreen(
@@ -43,7 +44,7 @@ fun ProductDetailScreen(
                 TextButton(
                     onClick = onBack
                 ) {
-                    Text("Back")
+                    Text(Constants.Strings.BACK)
                 }
             }
         }

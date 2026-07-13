@@ -13,6 +13,7 @@ import androidx.compose.ui.unit.dp
 import com.sandeep.productbrowser.presentation.components.*
 import com.sandeep.productbrowser.presentation.productlist.ProductListUiEvent
 import com.sandeep.productbrowser.presentation.productlist.ProductListViewModel
+import com.sandeep.productbrowser.core.common.Constants
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -50,7 +51,7 @@ fun ProductListScreen(
                     FilterChip(
                         selected = state.selectedCategory == null,
                         onClick = { viewModel.onEvent(ProductListUiEvent.SelectCategory(null)) },
-                        label = { Text("All") }
+                        label = { Text(Constants.Strings.ALL) }
                     )
                 }
                 items(state.categories) { category ->

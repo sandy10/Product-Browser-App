@@ -6,6 +6,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.sandeep.productbrowser.core.common.Constants
 
 @Composable
 fun EmptyView() {
@@ -15,7 +16,7 @@ fun EmptyView() {
     ) {
 
         Text(
-            text = "No Products Found",
+            text = Constants.Strings.NO_PRODUCTS_FOUND,
             style = MaterialTheme.typography.titleMedium
         )
     }

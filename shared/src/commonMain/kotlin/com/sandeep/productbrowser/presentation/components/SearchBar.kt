@@ -8,6 +8,7 @@ import androidx.compose.runtime.*
 
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.sandeep.productbrowser.core.common.Constants
 
 @Composable
 fun SearchBar(
@@ -25,7 +26,7 @@ fun SearchBar(
         value = value,
         onValueChange = onValueChange,
         label = {
-            Text("Search Products")
+            Text(Constants.Strings.SEARCH_PRODUCTS)
         }
     )
 }

@@ -1,4 +1,6 @@
 package com.sandeep.productbrowser
 
+import com.sandeep.productbrowser.core.common.Constants
+
 fun sayHello(to: String): String =
-    "Hello, $to!"
+    "${Constants.Strings.HELLO}$to!"

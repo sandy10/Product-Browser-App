@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.sandeep.productbrowser.core.common.Constants
 
 @Composable
 fun ErrorView(
@@ -31,7 +32,7 @@ fun ErrorView(
         Button(
             onClick = onRetry
         ) {
-            Text("Retry")
+            Text(Constants.Strings.RETRY)
         }
     }
 }

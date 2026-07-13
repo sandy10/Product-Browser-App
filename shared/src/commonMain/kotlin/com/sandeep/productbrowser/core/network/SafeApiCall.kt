@@ -5,6 +5,7 @@ import com.sandeep.productbrowser.core.result.AppError
 import io.ktor.client.plugins.*
 import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.serialization.SerializationException
+import com.sandeep.productbrowser.core.common.Constants
 
 suspend inline fun <T> safeApiCall(
     crossinline apiCall: suspend () -> T
@@ -37,7 +38,7 @@ suspend inline fun <T> safeApiCall(
     } catch (e: Exception) {
 
         ApiResponse.Failure(
-            AppError.Unknown(e.message ?: "Unknown error")
+            AppError.Unknown(e.message ?: Constants.Strings.UNKNOWN_ERROR)
         )
     }
 }
