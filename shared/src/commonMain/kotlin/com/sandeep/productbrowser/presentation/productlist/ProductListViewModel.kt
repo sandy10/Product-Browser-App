@@ -102,15 +102,16 @@ class ProductListViewModel(
                 allLoadedProducts = result.data
                 val categories = allLoadedProducts.map { it.category }.distinct()
                 
-                _uiState.value = ProductListUiState(
+                _uiState.value = _uiState.value.copy(
                     products = allLoadedProducts,
                     categories = categories,
                     selectedCategory = null,
-                    isLoading = false
+                    isLoading = false,
+                    error = null
                 )
             }
             is ApiResponse.Failure -> {
-                _uiState.value = ProductListUiState(
+                _uiState.value = _uiState.value.copy(
                     error = result.error.toUserMessage(),
                     isLoading = false
                 )
